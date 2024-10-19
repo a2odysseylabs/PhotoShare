@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { EventDetails, LandingPage } from './pages';
+import { EventDetails, LandingPage, AIBoothPage } from './pages';
 import { Header } from './components/Header';
 
 const App: React.FC = () => {
@@ -11,6 +11,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/event/:eventId" element={<EventDetails />} />
+        <Route path="/aibooth/:eventId/:galleryId" element={<AIBoothPage />} />
       </Routes>
     </div>
   );
