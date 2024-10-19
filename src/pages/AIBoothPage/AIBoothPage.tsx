@@ -20,7 +20,7 @@ const AIBoothPage: React.FC = () => {
   useEffect(() => {
     const fetchGalleryItem = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/event/${eventId}/gallery/${galleryId}`);
+        const response = await fetch(`https://photoshare-backend-vrpr.onrender.com/api/event/${eventId}/gallery/${galleryId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch gallery item');
         }
