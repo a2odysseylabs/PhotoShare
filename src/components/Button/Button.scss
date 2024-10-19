@@ -1,0 +1,55 @@
+.ds-solid-button {
+    @apply font-semibold rounded-lg transition-all duration-300 ease-in-out;
+    
+    &--primary {
+      @apply bg-blue-600 text-white hover:bg-blue-700;
+    }
+  
+    &--secondary {
+      @apply bg-gray-500 text-white hover:bg-gray-600;
+    }
+  
+    &--destructive {
+      @apply bg-red-600 text-white hover:bg-red-700;
+    }
+  
+    &--inline {
+      @apply inline-block;
+    }
+  
+    &--full {
+      @apply w-full;
+    }
+  
+    &--xlarge {
+      @apply py-4 px-8 text-xl;
+    }
+  
+    &--large {
+      @apply py-3 px-6 text-lg;
+    }
+  
+    &--medium {
+      @apply py-2 px-4 text-base;
+    }
+  
+    &--small {
+      @apply py-1 px-2 text-sm;
+    }
+  
+    &--shadow {
+      @apply shadow-lg;
+    }
+  
+    &--attention {
+      @apply ring-4 ring-blue-300;
+    }
+  
+    &--disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+  
+    &--pending {
+      @apply cursor-wait;
+    }
+  }
