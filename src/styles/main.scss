@@ -1,0 +1,46 @@
+// Example: Custom styles using Kanit font
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply font-sans bg-neutral-800 text-neutral-50;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.custom-button {
+    @apply px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600;
+}
+
+@layer components {
+    .heading-1 {
+      @apply text-5xl font-extrabold leading-tight mb-4;
+    }
+  
+    .heading-2 {
+      @apply text-4xl font-bold mb-3;
+    }
+  
+    .heading-3 {
+      @apply text-3xl font-semibold mb-2;
+    }
+  
+    .heading-4 {
+      @apply text-2xl font-medium mb-2;
+    }
+  
+    .heading-5 {
+      @apply text-xl font-medium mb-1;
+    }
+  
+    .heading-6 {
+      @apply text-lg font-normal mb-1;
+    }
+  } 
