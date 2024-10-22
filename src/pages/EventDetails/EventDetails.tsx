@@ -1,29 +1,51 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import classNames from "classnames";
-
-import { events } from "../../data/events";
 import { Button } from "../../components";
 
 interface EventDetailsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+interface Event {
+  _id: string;
+  event_name: string;
+  event_date: string;
+  promptTitle: string;
+  galleryImageUrls: string[];
+}
+
 const EventDetails = ({ className }: EventDetailsProps) => {
   const { eventId } = useParams<{ eventId: string }>();
-  const event = events.find((e) => e.id === eventId);
-
+  const [event, setEvent] = useState<Event | null>(null);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  if (!event) {
-    return (
-      <p className="text-center mt-20 text-red-500">Event not found.</p>
-    );
-  }
+  // Fetch event details when component mounts
+  useEffect(() => {
+    const fetchEventDetails = async () => {
+      try {
+        const response = await fetch(`https://photoshare-backend-vrpr.onrender.com/api/event/${eventId}`);
+        if (!response.ok) {
+          throw new Error("Event not found");
+        }
+        const data = await response.json();
+        setEvent(data);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchEventDetails();
+  }, [eventId]);
+
+  // Handle image selection
   const handleImageSelect = (image: string) => {
     setSelectedImages((prev) =>
       prev.includes(image)
-        ? prev.filter((img) => img !== image) // Deselect if already selected
-        : [...prev, image] // Add to selection if not selected
+        ? prev.filter((img) => img !== image)
+        : [...prev, image]
     );
   };
 
@@ -39,21 +61,35 @@ const EventDetails = ({ className }: EventDetailsProps) => {
     alert(`Performing ${action} action with selected images: ${selectedImages.join(", ")}`);
   };
 
+  if (loading) {
+    return <p className="text-center mt-20">Loading event details...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center mt-20 text-red-500">{error}</p>;
+  }
+
+  if (!event) {
+    return <p className="text-center mt-20 text-red-500">Event not found.</p>;
+  }
+
+  const formattedDate = new Date(event.event_date).toISOString().split('T')[0];
+
   return (
     <div className={classNames(className, "min-h-screen relative")}>
       <div className="bg-neutral-700 rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold mb-4">{event.title}</h1>
-        <p className="text-lg mb-2">Date: {event.date}</p>
-        <p className="text-lg mb-4">Location: {event.location}</p>
+        <h1 className="text-3xl font-bold mb-4">{event.event_name}</h1>
+        <p className="text-lg mb-2">Date: {formattedDate}</p>
+        <p className="text-lg mb-4">Location: {event.promptTitle}</p>
 
         {selectedImages.length}
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
-          {event.images?.map((image, index) => (
+          {event.galleryImageUrls?.map((image, index) => (
             <div key={index} className="relative group">
               <img
                 src={image}
-                alt={`Event ${event.title} - ${index + 1}`}
+                alt={`Event ${event.event_name} - ${index + 1}`}
                 className={`w-full h-64 object-cover rounded-lg shadow-md ${
                   selectedImages.includes(image) ? "ring-4 ring-blue-500" : ""
                 }`}
