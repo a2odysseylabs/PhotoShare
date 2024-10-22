@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EventsCard } from '../../components';
 import classNames from 'classnames';
+import { url } from "../../data/events";
 
 interface LandingPageProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -19,7 +20,7 @@ const LandingPage = ({ className }: LandingPageProps) => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('https://photoshare-backend-vrpr.onrender.com/api/events'); // Fetch data from API
+        const response = await fetch(`${url}/api/events`); // Fetch data from API
         if (!response.ok) {
           throw new Error('Failed to fetch events');
         }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import { Button } from "../../components";
+import { url } from "../../data/events";
 
 interface EventDetailsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -24,7 +25,7 @@ const EventDetails = ({ className }: EventDetailsProps) => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`https://photoshare-backend-vrpr.onrender.com/api/event/${eventId}`);
+        const response = await fetch(`${url}/api/event/${eventId}`);
         if (!response.ok) {
           throw new Error("Event not found");
         }

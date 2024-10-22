@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { url } from "../../data/events";
 
 interface GalleryImage {
   id: string;
@@ -20,7 +21,7 @@ const AIBoothPage: React.FC = () => {
   useEffect(() => {
     const fetchGalleryItem = async () => {
       try {
-        const response = await fetch(`https://photoshare-backend-vrpr.onrender.com/api/event/${eventId}/gallery/${galleryId}`);
+        const response = await fetch(`${url}/api/event/${eventId}/gallery/${galleryId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch gallery item');
         }
