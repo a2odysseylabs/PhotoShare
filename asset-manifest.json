@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/PhotoShare/static/css/main.23817b63.css",
-    "main.js": "/PhotoShare/static/js/main.f0c4e4cc.js",
+    "main.js": "/PhotoShare/static/js/main.a6a40153.js",
     "static/js/453.ed3810f9.chunk.js": "/PhotoShare/static/js/453.ed3810f9.chunk.js",
     "index.html": "/PhotoShare/index.html",
     "main.23817b63.css.map": "/PhotoShare/static/css/main.23817b63.css.map",
-    "main.f0c4e4cc.js.map": "/PhotoShare/static/js/main.f0c4e4cc.js.map",
+    "main.a6a40153.js.map": "/PhotoShare/static/js/main.a6a40153.js.map",
     "453.ed3810f9.chunk.js.map": "/PhotoShare/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.23817b63.css",
-    "static/js/main.f0c4e4cc.js"
+    "static/js/main.a6a40153.js"
   ]
 }
