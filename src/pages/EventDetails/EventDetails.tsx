@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import classNames from "classnames";
-import { ChevronLeftIcon } from "@radix-ui/react-icons"
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
 
 import { Button } from "../../components/ui/button";
-import { url } from "../../lib/utils"
+import { url } from "../../lib/utils";
 
 interface EventDetailsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -22,24 +22,32 @@ const EventDetails = ({ className }: EventDetailsProps) => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    // Fetch event details when component mounts
-    useEffect(() => {
-        const fetchEventDetails = async () => {
-            try {
-                const response = await fetch(`${url}/api/event/${eventId}`);
-                if (!response.ok) {
-                    throw new Error("Event not found");
-                }
-                const data = await response.json();
-                setEvent(data);
-            } catch (error: any) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
+    // Function to fetch event details
+    const fetchEventDetails = async () => {
+        try {
+            const response = await fetch(`${url}/api/event/${eventId}`);
+            if (!response.ok) {
+                throw new Error("Event not found");
             }
-        };
+            const data = await response.json();
+            setEvent(data);
+        } catch (error: any) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    // Fetch event details when component mounts and set up auto-refresh every 15 seconds
+    useEffect(() => {
         fetchEventDetails();
+
+        const intervalId = setInterval(() => {
+            fetchEventDetails(); // Fetch every 15 seconds
+            console.log("reloaded");
+        }, 15000);
+
+        return () => clearInterval(intervalId);
     }, [eventId]);
 
     if (loading) {
@@ -63,7 +71,7 @@ const EventDetails = ({ className }: EventDetailsProps) => {
             </Button>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {event.galleryImageUrls?.map((image, index) => (
+                {event.galleryImageUrls?.slice().reverse().map((image, index) => (
                     <div key={index} className="relative group">
                         <img
                             src={image}
