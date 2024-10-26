@@ -17,7 +17,7 @@ interface Event {
 }
 
 const EventDetails = ({ className }: EventDetailsProps) => {
-    const { eventId } = useParams<{ eventId: string }>();
+    const { uniqueId } = useParams<{ uniqueId: string }>();
     const [event, setEvent] = useState<Event | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -25,7 +25,7 @@ const EventDetails = ({ className }: EventDetailsProps) => {
     // Function to fetch event details
     const fetchEventDetails = async () => {
         try {
-            const response = await fetch(`${url}/api/event/${eventId}`);
+            const response = await fetch(`${url}/api/event/${uniqueId}`);
             if (!response.ok) {
                 throw new Error("Event not found");
             }
@@ -48,7 +48,7 @@ const EventDetails = ({ className }: EventDetailsProps) => {
         }, 15000);
 
         return () => clearInterval(intervalId);
-    }, [eventId]);
+    }, [uniqueId]);
 
     if (loading) {
         return <p className="container mt-64 mx-auto text-center">Loading event details...</p>;

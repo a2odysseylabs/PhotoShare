@@ -9,8 +9,8 @@ const App: React.FC = () => {
       <Header />
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/event/:eventId" element={<EventDetails />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
+        <Route path="/:uniqueId" element={<EventDetails />} />
         <Route path="/aibooth/:eventId/:galleryId" element={<AIBoothPage />} />
       </Routes>
     </div>
