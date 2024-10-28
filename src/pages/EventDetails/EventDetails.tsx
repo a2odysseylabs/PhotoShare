@@ -66,10 +66,6 @@ const EventDetails = ({ className }: EventDetailsProps) => {
 
     return (
         <div className={classNames(className, "min-h-screen my-16 relative")}>
-            <Button asChild size="icon" className="fixed top-3 left-3 z-[1010]">
-                <Link to="/"><ChevronLeftIcon className="h-4 w-4" /></Link>
-            </Button>
-
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {event.galleryImageUrls?.slice().reverse().map((image, index) => (
                     <div key={index} className="relative group">
